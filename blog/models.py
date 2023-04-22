@@ -8,3 +8,10 @@ class Post(models.Model):
     intro = models.TextField()
     body = models.TextField()
     posted_date = models.DateTimeField(auto_now_add=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    email = models.EmailField()
+    body = models.TextField()
+    posted_date = models.DateTimeField(auto_now_add=True)

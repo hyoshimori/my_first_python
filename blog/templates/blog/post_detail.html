@@ -1,0 +1,41 @@
+<!-- Inside these, it will be inserted within base.html -->
+
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+<div>
+  <h2>{{post.title}}</h2>
+  <p>Posted at {{post.posted_date}}</p>
+  <p>Posted at {{post.body}}</p>
+</div>
+
+<!-- Show the comments -->
+
+<h2>Comment!</h2>
+<div>
+  {% for comment in post.comments.all %}
+  <article>
+    <div>
+      <div>
+        <p>{{comment.name}}</p>
+        <p>{{comment.posted_date}}</p>
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+
+<!-- Add Comment  -->
+<h2>Add Comments</h2>
+<form action="." method="post">
+  <!-- ↓ We need this for the security issues -->
+  {% csrf_token %}
+  {{form.as_p}}
+  <div>
+    <div>
+      <button>Send</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
