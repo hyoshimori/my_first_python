@@ -3,12 +3,11 @@
 {% extends "blog/base.html" %}
 {% block content %}
 
-{% for post in posts %}
+
 <div>
   <h2>{{post.title}}</h2>
   <p>Posted at {{post.posted_date}}</p>
-  <!-- post.slug is used for url -->
-  <a href="{% url 'post_detail' post.slug %}">Read more</a>
+  <p>Posted at {{post.body}}</p>
 </div>
-{% endfor %}
+
 {% endblock %}
