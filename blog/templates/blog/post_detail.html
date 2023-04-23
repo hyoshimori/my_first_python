@@ -1,13 +1,10 @@
-<!-- Inside these, it will be inserted within base.html -->
-
 {% extends "blog/base.html" %}
 {% block content %}
-
 
 <div>
   <h2>{{post.title}}</h2>
   <p>Posted at {{post.posted_date}}</p>
-  <p>Posted at {{post.body}}</p>
+  <p>{{post.body}}</p>
 </div>
 
 <!-- Show the comments -->
@@ -20,6 +17,10 @@
       <div>
         <p>{{comment.name}}</p>
         <p>{{comment.posted_date}}</p>
+        <p>{{comment.body}}</p>
+        {% if user == comment.author or user.is_superuser %}
+          <a href="{% url 'delete_comment' comment.id %}">Delete Comment</a>
+        {% endif %}
       </div>
     </div>
   </article>
@@ -29,7 +30,7 @@
 <!-- Add Comment  -->
 <h2>Add Comments</h2>
 <form action="." method="post">
-  <!-- ↓ We need this for the security issues -->
+  <!-- We need this for the security issues -->
   {% csrf_token %}
   {{form.as_p}}
   <div>

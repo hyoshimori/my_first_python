@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import frontpage, post_detail
+from blog.views import frontpage, post_detail, delete_comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', frontpage),
-    path("<slug:slug>/", post_detail, name="post_detail")
+    path("<slug:slug>/", post_detail, name="post_detail"),
+    path("delete-comment/<int:comment_id>/", delete_comment, name="delete_comment")
 ]
