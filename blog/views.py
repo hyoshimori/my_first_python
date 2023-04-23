@@ -32,18 +32,3 @@ def delete_comment(request, comment_id):
         return redirect("post_detail", slug=post_slug)
     else:
         return redirect("post_detail", slug=post_slug)
-
-def update_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
-    post_slug = comment.post.slug
-    if request.user == comment.author or request.user.is_superuser:
-        if request.method == "POST":
-            form = CommentForm(request.POST, instance=comment)
-            if form.is_valid():
-                form.save()
-                return redirect("post_detail", slug=post_slug)
-        else:
-            form = CommentForm(instance=comment)
-        return render(request, "blog/update_comment.html", {"form": form, "comment": comment})
-    else:
-        return redirect("post_detail", slug=post_slug)
